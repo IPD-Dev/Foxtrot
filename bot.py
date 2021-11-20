@@ -2,7 +2,7 @@
 
 import discord
 from discord import File, Streaming, Game, Activity, ActivityType, Status
-from discord.ext import commands
+from discord.ext import commands, tasks
 import io, aiohttp, asyncio, json, random, logging, requests
 
 
@@ -129,6 +129,7 @@ async def mc(ctx, *, name = None):
             for i in json["name_history"]:
                 embed.add_field(name=i['name'], value=f"Changed on: {i['changedToAt']}")
             await ctx.send(embed = embed)
+            await ctx.send(f'To view names that did not show up here, go to <https://namemc.com/{username}>')
 
 @bot.command(brief="gives credits")
 async def credits(ctx):
