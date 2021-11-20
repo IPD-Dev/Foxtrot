@@ -86,28 +86,9 @@ async def activity(ctx, atype, *, aname):
 async def invite(ctx):
     await ctx.send("Add this bot to your server: https://discord.com/oauth2/authorize?client_id=909103805264724038&permissions=274878203904&scope=bot")
 
-@bot.command(hidden=True, brief="gives information about a minecraft user")
-async def mc(ctx, *, name = None):
-    if not name:
-        embed = discord.Embed(
-            title = "No Minecraft user given!",
-            description = "You have not given a minecraft username, therefore I cannot find anything for you! usage: gib mc (name)"
-        )
-        return await ctx.send(embed = embed)
-    async with aiohttp.ClientSession() as session:
-        async with session.get(f'https://some-random-api.ml/mc?username={name}') as resp:
-            json = await resp.json()
-            username = json["username"]
-            uuid = json["uuid"]
-            namehistory = json["name_history"]
-            await ctx.send(f"""
-Username: {username}
-UUID: {uuid}
-Name History: {namehistory}""")
- 
 @bot.command(brief="gives credits")
 async def credits(ctx):
-    await ctx.send("""Images used in this bot are taken from:
+    await ctx.send("""API endpoints used in this bot are taken from:
 https://foxrudor.de/
 https://some-random-api.ml
 https://shitfest.net
@@ -121,6 +102,7 @@ xfnw#1113
 <https://cat.casa/~julia/> (shitfest memes API)
 TFTWPhoenix#9240 (I dont know, hes cool I guess.)
 remi#9948 (also pretty cool ig)
+Foxtrot is open source! Find our code at https://code.cat.casa/Helixu/Foxtrot
 """)
 @bot.command(brief="random meme")
 async def meme(ctx):
