@@ -112,7 +112,7 @@ async def mc(ctx, *, name = None):
 
 @bot.command(brief="gives credits")
 async def credits(ctx):
-    await ctx.send("""Images used in this bot are taken from:
+    await ctx.send("""API endpoints used in this bot are taken from:
 https://foxrudor.de/
 https://some-random-api.ml
 https://shitfest.net
