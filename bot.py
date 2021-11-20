@@ -160,7 +160,7 @@ async def gay(ctx, member: discord.Member=None):
 @bot.event
 async def on_ready():
     await asyncio.sleep(1) # someone on stackoverflow said discord does not like if you are speedy
-    await bot.change_presence(activity=Streaming(name="Testing - bot may go offline at any point", url="https://twitch.tv/xginlang"))
+    await bot.change_presence(activity=Streaming(name="Testing - bot may go offline at any point.", url="https://twitch.tv/xginlang"))
 
 with open('token.json', 'r') as file:
     token = ''.join([line[:-1] for line in file.readlines()])
