@@ -95,7 +95,7 @@ async def mc(ctx, *, name = None):
             await ctx.send(f"""
 Username: {username}
 UUID: {uuid}
-Name History: {namehistory}""")
+Name History: Removed as it is currently bugged!""")
  
 @bot.command(brief="gives credits")
 async def credits(ctx):
