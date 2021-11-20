@@ -173,8 +173,9 @@ async def gay(ctx, member: discord.Member=None):
                     color=0xf1f1f1,
                     )
                 embed.set_image(url="attachment://gay.png")
-            await ctx.send(embed=embed, file=file)
-
+                await ctx.send(embed=embed, file=file)
+            else:
+                await ctx.send("An unexpected error happened, Steve.. I told you this already!")
 
     
 
