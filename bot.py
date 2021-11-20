@@ -85,7 +85,7 @@ async def activity(ctx, atype, *, aname):
 async def invite(ctx):
     await ctx.send("Add this bot to your server: https://discord.com/oauth2/authorize?client_id=909103805264724038&permissions=274878203904&scope=bot")
 
-@bot.command(hidden=True, brief="gives information about a minecraft user")
+@bot.command(brief="gives information about a minecraft user")
 async def mc(ctx, *, name = None):
     if not name:
         embed = discord.Embed(
