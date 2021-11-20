@@ -34,6 +34,14 @@ async def fox(ctx):
             file = File(io.BytesIO(await resp.read()),filename='fox.jpg')
             await ctx.send(random.choice(foxmsgs),file=file)
 
+@bot.command(brief="cattttttt")
+async def cat(ctx):
+    async with aiohttp.ClientSession() as session:
+        async with session.get('https://some-random-api.ml/animal/cat') as resp:
+            json = await resp.json()
+            await ctx.send(json["fact"])
+            await ctx.send(json["image"])
+
 
 @bot.command(brief="gives you a fluffy panda")
 async def panda(ctx):
