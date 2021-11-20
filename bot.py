@@ -37,6 +37,7 @@ bot = commands.Bot(command_prefix='gib ')
 
 @bot.command(brief="gives you a fluffy fox")
 async def fox(ctx):
+
     async with aiohttp.ClientSession() as session:
         async with session.get('https://foxrudor.de/') as resp:
             file = File(io.BytesIO(await resp.read()),filename='fox.jpg')
@@ -47,6 +48,9 @@ async def cat(ctx):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/cat') as resp:
             json = await resp.json()
+            error = json.get('error')
+            if error:
+                return await ctx.send(f'Received unexpected error, unclear instructions, got stuck in toaster! ({error})')
             await ctx.send(json["fact"])
             await ctx.send(json["image"])
 
@@ -55,6 +59,9 @@ async def panda(ctx):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/panda') as resp:
             json = await resp.json()
+            error = json.get('error')
+            if error:
+                return await ctx.send(f'Received unexpected error, thats not good! ({error})')
             await ctx.send(json["fact"])
             await ctx.send(json["image"])
 
@@ -64,6 +71,9 @@ async def koala(ctx):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/koala') as resp:
             json = await resp.json()
+            error = json.get('error')
+            if error:
+                return await ctx.send(f'Received unexpected error, try our sister game, Minceraft! ({error})')
             await ctx.send(json["fact"])
             await ctx.send(json["image"])
 
@@ -73,6 +83,9 @@ async def raccoon(ctx):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/raccoon') as resp:
             json = await resp.json()
+            error = json.get('error')
+            if error:
+                return await ctx.send(f'Received unexpected error, blame ginlang! ({error})')
             await ctx.send(json["fact"])
             await ctx.send(json["image"])
 
