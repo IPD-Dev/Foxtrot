@@ -37,7 +37,6 @@ bot = commands.Bot(command_prefix='gib ')
 
 @bot.command(brief="gives you a fluffy fox")
 async def fox(ctx):
-
     async with aiohttp.ClientSession() as session:
         async with session.get('https://foxrudor.de/') as resp:
             file = File(io.BytesIO(await resp.read()),filename='fox.jpg')
