@@ -96,14 +96,21 @@ async def mc(ctx, *, name = None):
     async with aiohttp.ClientSession() as session:
         async with session.get(f'https://some-random-api.ml/mc?username={name}') as resp:
             json = await resp.json()
+            error = json.get('error')
+            if error:
+                return await ctx.send(f'Received unexpected error, blame Mojang! ({error})')
             username = json["username"]
             uuid = json["uuid"]
-            namehistory = json["name_history"]
-            await ctx.send(f"""
-Username: {username}
-UUID: {uuid}
-Name History: Removed as it is currently bugged!""")
- 
+            #namehistory = ', '.join([f"Name: {i['name']} Changed at: {i['changedToAt']}" for i in json["name_history"]])
+            embed = discord.Embed(title='Minecraft User Information')
+            embed.set_author(name=f'{username}')
+            embed.add_field(name='Username', value=f'{username}', inline=False)
+            embed.add_field(name='UUID', value=f'{uuid}', inline=False)
+            embed.add_field(name='Name History', value=f"Name changes: {len(json['name_history'])}", inline=False)
+            for i in json["name_history"]:
+                embed.add_field(name=i['name'], value=f"Changed on: {i['changedToAt']}")
+            await ctx.send(embed = embed)
+
 @bot.command(brief="gives credits")
 async def credits(ctx):
     await ctx.send("""Images used in this bot are taken from:
@@ -120,6 +127,7 @@ xfnw#1113
 <https://cat.casa/~julia/> (shitfest memes API)
 TFTWPhoenix#9240 (I dont know, hes cool I guess.)
 remi#9948 (also pretty cool ig)
+Foxtrot is open source! Find the code at <https://code.cat.casa/Helixu/Foxtrot>
 """)
 @bot.command(brief="random meme")
 async def meme(ctx):
