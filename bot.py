@@ -135,15 +135,27 @@ async def meme(ctx):
             json = await resp.json()
             await ctx.send(json["url"])
 
-#@bot.command()
-#async def help(ctx):
-#    await ctx.send("""The current list of commands are:
-#fox (Gets an image of a fox)
-#activity (Sets bot activity, only works if you are a developer)
-#invite (Gives bot invite link)
-#help (this)
-#""")
 
+@bot.command(brief='makes things gay')
+async def gay(ctx, member: discord.Member=None):
+    member = member or ctx.author
+    await ctx.trigger_typing()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+        f'https://some-random-api.ml/canvas/gay?avatar={member.avatar_url_as(format="png")}'
+        ) as af:
+            if 300 > af.status >= 200 :
+                fp = io.BytesIO(await af.read())
+                file = discord.File(fp, "gay.png")
+                embed = discord.Embed(
+                    title="gaaaaaay",
+                    color=0xf1f1f1,
+                    )
+                embed.set_image(url="attachment://gay.png")
+            await ctx.send(embed=embed, file=file)
+
+
+    
 
 @bot.event
 async def on_ready():
