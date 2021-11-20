@@ -103,8 +103,7 @@ async def mc(ctx, *, name = None):
             uuid = json["uuid"]
             #namehistory = ', '.join([f"Name: {i['name']} Changed at: {i['changedToAt']}" for i in json["name_history"]])
             embed = discord.Embed(title='Minecraft User Information')
-            embed.set_author(name=f'{username}')
-            embed.add_field(name='Username', value=f'{username}', inline=False)
+            embed.set_author(name=f'User {username}')
             embed.add_field(name='UUID', value=f'{uuid}', inline=False)
             embed.add_field(name='Name History', value=f"Name changes: {len(json['name_history'])}", inline=False)
             for i in json["name_history"]:
