@@ -1,3 +1,5 @@
+
+
 import discord
 from discord import File, Streaming, Game, Activity, ActivityType, Status
 from discord.ext import commands
@@ -11,6 +13,12 @@ foxmsgs = [
         'uwu',
         'heres ur fox',
         ]
+
+def getAllUsers():
+    membercount = 0
+    for guild in bot.guilds:
+        membercount += guild.member_count
+    return membercount
 
 async def is_ginlang(ctx):
     """
@@ -77,7 +85,7 @@ async def activity(ctx, atype, *, aname):
     if atype not in atypes:
         await ctx.send("invalid activity type. the valid types are "+' '.join(atypes.keys()))
         return
-    await bot.change_presence(activity=Activity(name=aname, type=atypes[atype], url="https://twitch.tv/xginlang"))
+    await bot.change_presence(activity=Activity(name=(aname + f" and foxing {str(getAllUsers())} users"), type=atypes[atype], url="https://twitch.tv/xginlang"))
     await ctx.send('Success!')
 
 
@@ -163,6 +171,7 @@ async def on_ready():
     await bot.change_presence(activity=Streaming(name="Testing - bot may go offline at any point.", url="https://twitch.tv/xginlang"))
 
 with open('token.json', 'r') as file:
+    # this breaks if you are on windows
     token = ''.join([line[:-1] for line in file.readlines()])
     bot.run(token)
 
