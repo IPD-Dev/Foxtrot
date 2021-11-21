@@ -1,6 +1,8 @@
+
+
 import discord
 from discord import File, Streaming, Game, Activity, ActivityType, Status
-from discord.ext import commands
+from discord.ext import commands, tasks
 import io, aiohttp, asyncio, json, random, logging, requests
 
 
@@ -11,6 +13,12 @@ foxmsgs = [
         'uwu',
         'heres ur fox',
         ]
+
+def getAllUsers():
+    membercount = 0
+    for guild in bot.guilds:
+        membercount += guild.member_count
+    return membercount
 
 async def is_ginlang(ctx):
     """
@@ -34,20 +42,25 @@ async def fox(ctx):
             file = File(io.BytesIO(await resp.read()),filename='fox.jpg')
             await ctx.send(random.choice(foxmsgs),file=file)
 
-@bot.command(brief="cattttttt")
+@bot.command(brief="cattttttttt")
 async def cat(ctx):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/cat') as resp:
             json = await resp.json()
+            error = json.get('error')
+            if error:
+                return await ctx.send(f'Received unexpected error, unclear instructions, got stuck in toaster! ({error})')
             await ctx.send(json["fact"])
             await ctx.send(json["image"])
-
 
 @bot.command(brief="gives you a fluffy panda")
 async def panda(ctx):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/panda') as resp:
             json = await resp.json()
+            error = json.get('error')
+            if error:
+                return await ctx.send(f'Received unexpected error, thats not good! ({error})')
             await ctx.send(json["fact"])
             await ctx.send(json["image"])
 
@@ -57,6 +70,9 @@ async def koala(ctx):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/koala') as resp:
             json = await resp.json()
+            error = json.get('error')
+            if error:
+                return await ctx.send(f'Received unexpected error, try our sister game, Minceraft! ({error})')
             await ctx.send(json["fact"])
             await ctx.send(json["image"])
 
@@ -66,6 +82,9 @@ async def raccoon(ctx):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/raccoon') as resp:
             json = await resp.json()
+            error = json.get('error')
+            if error:
+                return await ctx.send(f'Received unexpected error, blame ginlang! ({error})')
             await ctx.send(json["fact"])
             await ctx.send(json["image"])
 
@@ -78,13 +97,39 @@ async def activity(ctx, atype, *, aname):
     if atype not in atypes:
         await ctx.send("invalid activity type. the valid types are "+' '.join(atypes.keys()))
         return
-    await bot.change_presence(activity=Activity(name=aname, type=atypes[atype], url="https://twitch.tv/xginlang"))
+    await bot.change_presence(activity=Activity(name=(aname + f" ¦ {str(getAllUsers())} users"), type=atypes[atype], url="https://twitch.tv/xginlang"))
     await ctx.send('Success!')
 
 
 @bot.command(brief="gives bot invite link")
 async def invite(ctx):
     await ctx.send("Add this bot to your server: https://discord.com/oauth2/authorize?client_id=909103805264724038&permissions=274878203904&scope=bot")
+
+@bot.command(brief="gives information about a minecraft user")
+async def mc(ctx, *, name = None):
+    if not name:
+        embed = discord.Embed(
+            title = "No Minecraft user given!",
+            description = "You have not given a minecraft username, therefore I cannot find anything for you! usage: gib mc (name)"
+        )
+        return await ctx.send(embed = embed)
+    async with aiohttp.ClientSession() as session:
+        async with session.get(f'https://some-random-api.ml/mc?username={name}') as resp:
+            json = await resp.json()
+            error = json.get('error')
+            if error:
+                return await ctx.send(f'Received unexpected error, blame Mojang! ({error})')
+            username = json["username"]
+            uuid = json["uuid"]
+            #namehistory = ', '.join([f"Name: {i['name']} Changed at: {i['changedToAt']}" for i in json["name_history"]])
+            embed = discord.Embed(title='Minecraft User Information')
+            embed.set_author(name=f'User {username}')
+            embed.add_field(name='UUID', value=f'{uuid}', inline=False)
+            embed.add_field(name='Name History', value=f"Name changes: {len(json['name_history'])}", inline=False)
+            for i in json["name_history"]:
+                embed.add_field(name=i['name'], value=f"Changed on: {i['changedToAt']}")
+            await ctx.send(embed = embed)
+            await ctx.send(f'To view names that did not show up here, go to <https://namemc.com/{username}>')
 
 @bot.command(brief="gives credits")
 async def credits(ctx):
@@ -102,7 +147,7 @@ xfnw#1113
 <https://cat.casa/~julia/> (shitfest memes API)
 TFTWPhoenix#9240 (I dont know, hes cool I guess.)
 remi#9948 (also pretty cool ig)
-Foxtrot is open source! Find our code at https://code.cat.casa/Helixu/Foxtrot
+Foxtrot is open source! Find the code at <https://code.cat.casa/Helixu/Foxtrot>
 """)
 @bot.command(brief="random meme")
 async def meme(ctx):
@@ -111,22 +156,36 @@ async def meme(ctx):
             json = await resp.json()
             await ctx.send(json["url"])
 
-#@bot.command()
-#async def help(ctx):
-#    await ctx.send("""The current list of commands are:
-#fox (Gets an image of a fox)
-#activity (Sets bot activity, only works if you are a developer)
-#invite (Gives bot invite link)
-#help (this)
-#""")
 
+@bot.command(brief='makes things gay')
+async def gay(ctx, member: discord.Member=None):
+    member = member or ctx.author
+    await ctx.trigger_typing()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+        f'https://some-random-api.ml/canvas/gay?avatar={member.avatar_url_as(format="png")}'
+        ) as af:
+            if 300 > af.status >= 200 :
+                fp = io.BytesIO(await af.read())
+                file = discord.File(fp, "gay.png")
+                embed = discord.Embed(
+                    title="gaaaaaay",
+                    color=0xf1f1f1,
+                    )
+                embed.set_image(url="attachment://gay.png")
+                await ctx.send(embed=embed, file=file)
+            else:
+                await ctx.send("An unexpected error happened, Steve.. I told you this already!")
+
+    
 
 @bot.event
 async def on_ready():
     await asyncio.sleep(1) # someone on stackoverflow said discord does not like if you are speedy
-    await bot.change_presence(activity=Streaming(name="Testing - bot may go offline at any point", url="https://twitch.tv/xginlang"))
+    await bot.change_presence(activity=Streaming(name=f"Dev Mode ¦ {str(getAllUsers())} users", url="https://twitch.tv/xginlang"))
 
 with open('token.json', 'r') as file:
+    # this breaks if you are on windows
     token = ''.join([line[:-1] for line in file.readlines()])
     bot.run(token)
 
