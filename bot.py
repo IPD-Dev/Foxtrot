@@ -97,7 +97,7 @@ async def activity(ctx, atype, *, aname):
     if atype not in atypes:
         await ctx.send("invalid activity type. the valid types are "+' '.join(atypes.keys()))
         return
-    await bot.change_presence(activity=Activity(name=(aname + f" and foxing {str(getAllUsers())} users"), type=atypes[atype], url="https://twitch.tv/xginlang"))
+    await bot.change_presence(activity=Activity(name=(aname + f" ¦ {str(getAllUsers())} users"), type=atypes[atype], url="https://twitch.tv/xginlang"))
     await ctx.send('Success!')
 
 
@@ -182,7 +182,7 @@ async def gay(ctx, member: discord.Member=None):
 @bot.event
 async def on_ready():
     await asyncio.sleep(1) # someone on stackoverflow said discord does not like if you are speedy
-    await bot.change_presence(activity=Streaming(name="Testing - bot may go offline at any point.", url="https://twitch.tv/xginlang"))
+    await bot.change_presence(activity=Streaming(name=f"Dev Mode ¦ {str(getAllUsers())} users", url="https://twitch.tv/xginlang"))
 
 with open('token.json', 'r') as file:
     # this breaks if you are on windows
