@@ -93,11 +93,6 @@ async def raccoon(ctx):
             await ctx.send(json["fact"])
             await ctx.send(json["image"])
 
-@bot.command(hidden=True)
-@commands.check(is_ginlang)
-async def restart(ctx):
-	await ctx.send("shutting down, beep boop.")
-	exit()
 
 
 @bot.command(hidden=True)
@@ -158,14 +153,15 @@ xfnw#1113
 <https://cat.casa/~julia/> (shitfest memes API)
 TFTWPhoenix#9240 (I dont know, hes cool I guess.)
 remi#9948 (also pretty cool ig)
+Ecolipsy#0001
 Foxtrot is open source! Find the code at <https://code.cat.casa/Helixu/Foxtrot>
 """)
 @bot.command(brief="random meme")
 async def meme(ctx):
     async with aiohttp.ClientSession() as session:
-        async with session.get('https://shitfest.net/api/random.php') as resp:
+        async with session.get('https://api.shitfest.net/v2/random.php') as resp:
             json = await resp.json()
-            await ctx.send(json["url"])
+            await ctx.send(json["mp4"])
 
 
 @bot.command(brief='makes things gay')
