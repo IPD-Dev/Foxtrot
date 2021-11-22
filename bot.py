@@ -76,6 +76,11 @@ async def koala(ctx):
             await ctx.send(json["fact"])
             await ctx.send(json["image"])
 
+@bot.command(hidden=True)
+@commands.check(is_ginlang)
+async def restart(ctx):
+	await ctx.send("shutting down. beep boop.")
+	await exit()
 
 @bot.command(brief="bin eaters")
 async def raccoon(ctx):
