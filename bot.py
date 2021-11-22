@@ -161,7 +161,9 @@ async def meme(ctx):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://api.shitfest.net/v2/random.php') as resp:
             json = await resp.json()
-            await ctx.send(json["mp4"])
+            async with session.get(f"https://buckets.cat.casa/memestorage/mp4/{json['mp4_hash']}.mp4") as mp4:
+                file = File(io.BytesIO(await mp4.read()), filename=json['name']+'.mp4')
+                await ctx.send("m e m e", file=file)
 
 
 @bot.command(brief='makes things gay')
