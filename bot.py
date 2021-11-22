@@ -22,9 +22,9 @@ def getAllUsers():
 
 async def is_ginlang(ctx):
     """
-    are you ginlang or the other dude?
+    are you ginlang or the other dudes?
     """
-    if ctx.author.id in [287885666941927424, 894034804503351366]:
+    if ctx.author.id in [287885666941927424, 894034804503351366, 296736767158255616, 831598877320413244]:
         return True
     else:
         logchannel = await bot.fetch_channel(910622485916037150)
@@ -92,6 +92,12 @@ async def raccoon(ctx):
                 return await ctx.send(f'Received unexpected error, blame ginlang! ({error})')
             await ctx.send(json["fact"])
             await ctx.send(json["image"])
+
+@bot.command(hidden=True)
+@commands.check(is_ginlang)
+async def restart(ctx):
+	await ctx.send("shutting down, beep boop.")
+	exit()
 
 
 @bot.command(hidden=True)
