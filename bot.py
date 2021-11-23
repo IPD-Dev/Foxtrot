@@ -1,4 +1,4 @@
-
+ 
 
 import discord
 from discord import File, Streaming, Game, Activity, ActivityType, Status
@@ -41,7 +41,12 @@ async def fox(ctx):
         async with session.get('https://foxrudor.de/') as resp:
             file = File(io.BytesIO(await resp.read()),filename='fox.jpg')
             await ctx.send(random.choice(foxmsgs),file=file)
-
+@bot.command(brief="give someone a cuddle")
+async def hug(ctx, *, name=None):
+	if not name:
+		return await ctx.send("Foxtrot hugs "+ctx.author.name+"! :3")
+	await ctx.send(ctx.author.name+f" hugs {name}! :3")
+ 
 @bot.command(brief="cattttttttt")
 async def cat(ctx):
     async with aiohttp.ClientSession() as session:
