@@ -116,7 +116,7 @@ async def activity(ctx, atype, *, aname):
     if atype not in atypes:
         await ctx.send("invalid activity type. the valid types are "+' '.join(atypes.keys()))
         return
-    await bot.change_presence(activity=Activity(name=(aname + f" ¦ {str(getAllUsers())} users"), type=atypes[atype], url="https://twitch.tv/xginlang"))
+    await bot.change_presence(activity=Activity(name=(aname + f" ¦ {str(getAllUsers())} users"), type=atypes[atype], url="https://discord.com/channels/@me/861965609528197141/913174004335018025"))
     await ctx.send('Success!')
 
 
@@ -174,7 +174,15 @@ async def meme(ctx):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://api.shitfest.net/v2/random.php') as resp:
             json = await resp.json()
-            await ctx.send("https://shitfest.net/"+json["name"])
+            try:
+                await ctx.send("https://shitfest.net/"+json["name"])
+            except:
+                     embed = discord.Embed(
+                          title = "Command 'meme' failed",
+                          description = "An error has occured with this command. cat.casa could possibly be offline or limited."
+                     )
+                     return await ctx.send(embed = embed)
+ 
 
 
 @bot.command(brief='makes things gay')
@@ -202,7 +210,7 @@ async def gay(ctx, member: discord.Member=None):
 @bot.event
 async def on_ready():
     await asyncio.sleep(1) # someone on stackoverflow said discord does not like if you are speedy
-    await bot.change_presence(activity=Streaming(name=f"Dev Mode ¦ {str(getAllUsers())} users", url="https://twitch.tv/xginlang"))
+    await bot.change_presence(activity=Streaming(name=f"Dev Mode ¦ {str(getAllUsers())} users", url="https://www.youtube.com/watch?v=1xBO4pUAs4M"))
 
 with open('token.json', 'r') as file:
     # this breaks if you are on windows
