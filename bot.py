@@ -40,7 +40,15 @@ async def fox(ctx):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://foxrudor.de/') as resp:
             file = File(io.BytesIO(await resp.read()),filename='fox.jpg')
-            await ctx.send(random.choice(foxmsgs),file=file)
+            try:
+                await ctx.send(random.choice(foxmsgs),file=file)
+            except:
+                     embed = discord.Embed(
+                         title = "Command 'fox' failed",
+                         description = "An error has occured with this command. This error is usually a 413 (Payload too large) and can be ignored."
+                     )
+                     return await ctx.send(embed = embed)
+
 @bot.command(brief="give someone a cuddle")
 async def hug(ctx, *, name=None):
 	if not name:
