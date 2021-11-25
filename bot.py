@@ -116,7 +116,7 @@ async def activity(ctx, atype, *, aname):
     if atype not in atypes:
         await ctx.send("invalid activity type. the valid types are "+' '.join(atypes.keys()))
         return
-    await bot.change_presence(activity=Activity(name=(aname + f" ¦ {str(getAllUsers())} users"), type=atypes[atype], url="https://discord.com/channels/@me/861965609528197141/913174004335018025"))
+    await bot.change_presence(activity=Activity(name=(aname + f" ¦ {str(getAllUsers())} users"), type=atypes[atype], url="https://www.youtube.com/watch?v=1xBO4pUAs4M"))
     await ctx.send('Success!')
 
 
