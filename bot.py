@@ -45,7 +45,7 @@ async def fox(ctx):
             except:
                      embed = discord.Embed(
                          title = "Command 'fox' failed",
-                         description = "An error has occured with this command. This error is usually a 413 (Payload too large) and can be ignored."
+                         description = "Received unexpected error, foxes occupied by ginlang, who is currently hugging them!"
                      )
                      return await ctx.send(embed = embed)
 
