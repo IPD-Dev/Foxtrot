@@ -45,7 +45,7 @@ async def fox(ctx):
             except:
                      embed = discord.Embed(
                          title = "Command 'fox' failed",
-                         description = "Received unexpected error, foxes occupied by ginlang, who is currently hugging them!"
+                         description = "Received unexpected error, foxes occupied by ginlang, who is currently hugging them! 413 Payload too Large"
                      )
                      return await ctx.send(embed = embed)
 
