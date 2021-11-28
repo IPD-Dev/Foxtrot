@@ -122,7 +122,8 @@ async def activity(ctx, atype, *, aname):
 
 @bot.command(brief="gives bot invite link")
 async def invite(ctx):
-    await ctx.send("Add this bot to your server: https://discord.com/oauth2/authorize?client_id=909103805264724038&permissions=274878203904&scope=bot")
+    await ctx.send("""Add this bot to your server: https://discord.com/oauth2/authorize?client_id=909103805264724038&permissions=274878203904&scope=bot
+You can also join our official Discord server at https://discord.gg/NAdRyjykv8!""")
 
 @bot.command(brief="gives information about a minecraft user")
 async def mc(ctx, *, name = None):
