@@ -11,6 +11,8 @@ foxmsgs = [
         'here fops',
         'owo',
         'uwu',
+        'fox hugz u'
+        'fox fox fox'
         'heres ur fox',
         ]
 
