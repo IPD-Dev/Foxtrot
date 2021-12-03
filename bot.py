@@ -56,6 +56,10 @@ async def hug(ctx, *, name=None):
 	if not name:
 		return await ctx.send("Foxtrot hugs "+ctx.author.name+"! :3")
 	await ctx.send(ctx.author.name+f" hugs {name}! :3")
+
+@bot.command(brief="gives the top.gg vote link")
+async def vote(ctx):
+    await ctx.send("Vote for Foxtrot on top.gg! <https://top.gg/bot/909103805264724038/vote>")
  
 @bot.command(brief="cattttttttt")
 async def cat(ctx):
