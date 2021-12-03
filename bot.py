@@ -193,12 +193,11 @@ async def meme(ctx):
 
 
 @bot.command(brief='makes things gay')
-async def gay(ctx, member: discord.Member=None):
-    member = member or ctx.author
+async def gay(ctx, url = None):
     await ctx.trigger_typing()
     async with aiohttp.ClientSession() as session:
         async with session.get(
-        f'https://some-random-api.ml/canvas/gay?avatar={member.avatar_url_as(format="png")}'
+        f'https://some-random-api.ml/canvas/gay?avatar={url}'
         ) as af:
             if 300 > af.status >= 200 :
                 fp = io.BytesIO(await af.read())
@@ -210,7 +209,8 @@ async def gay(ctx, member: discord.Member=None):
                 embed.set_image(url="attachment://gay.png")
                 await ctx.send(embed=embed, file=file)
             else:
-                await ctx.send("An unexpected error happened, Steve.. I told you this already!")
+                await ctx.send("""An unexpected error happened, Steve.. I told you this already!
+Are you sure that the image URL you sent is correct? Image attachments currently do not work!""")
 
     
 
