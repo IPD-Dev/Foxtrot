@@ -191,7 +191,11 @@ async def meme(ctx):
                      return await ctx.send(embed = embed)
  
 
-
+@bot.command(brief='IPD Discord server invite', aliases=["support"])
+async def server(ctx):
+	await ctx.send("""The official discord server for Foxtrot is discord.gg/mDBfnysAqd
+Our server contains everything we do and work on.""")
+ 
 @bot.command(brief='makes things gay')
 async def gay(ctx, url = None):
     await ctx.trigger_typing()
