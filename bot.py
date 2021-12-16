@@ -175,7 +175,7 @@ xfnw#1113
 TFTWPhoenix#9240 (I dont know, hes cool I guess.)
 remi#9948 (also pretty cool ig)
 Ecolipsy#0001
-Foxtrot is open source! Find the code at <https://code.cat.casa/Helixu/Foxtrot>
+Foxtrot is open source! Find the code at <https://code.cat.casa/IPD/Foxtrot>
 """)
 @bot.command(brief="random meme")
 async def meme(ctx):
