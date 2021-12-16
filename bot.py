@@ -4,8 +4,6 @@ import discord
 from discord import File, Streaming, Game, Activity, ActivityType, Status
 from discord.ext import commands, tasks
 import io, aiohttp, asyncio, json, random, logging, requests
-
-
 foxmsgs = [
         'floofy fox',
         'here fops',
@@ -55,7 +53,8 @@ async def fox(ctx):
 async def hug(ctx, *, name=None):
 	if not name:
 		return await ctx.send("Foxtrot hugs "+ctx.author.name+"! :3")
-	await ctx.send(ctx.author.name+f" hugs {name}! :3")
+    await ctx.send("This command is temporarily disabled until a major issue is fixed. We are sorry for the downtime, updates can be seen at <https://code.cat.casa/IPD/Foxtrot>")
+	#await ctx.send(ctx.author.name+f" hugs {name}! :3")
 
 @bot.command(brief="gives the top.gg vote link")
 async def vote(ctx):
