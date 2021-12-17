@@ -53,9 +53,10 @@ async def fox(ctx):
 
 @bot.command(brief="give someone a cuddle")
 async def hug(ctx, *, name=None):
-	if not name:
-		return await ctx.send("Foxtrot hugs "+ctx.author.name+"! :3")
-	await ctx.send(ctx.author.name+f" hugs {name}! :3")
+    if not name:
+        return await ctx.send("Foxtrot hugs "+ctx.author.name.replace("@", "")+"! :3")
+    nameFixed = name.replace("@everyone", "everyone").replace("@here", "everyone here")
+    await ctx.send(ctx.author.name+f" hugs {nameFixed}! :3")
 
 @bot.command(brief="gives the top.gg vote link")
 async def vote(ctx):
