@@ -2,6 +2,4 @@ Foxtrot is a multipurpose bot intended to give images and facts about animals, m
 	
 Foxtrot is open-sourced so people could help fix issues, and to stop people thinking we are doing malicious things with the bot.
 	
-Foxtrot also is not made to be self-hosted, but can be self-hosted if done correctly and changed a few things in the code and added your own bot's token in a token.json.
-
-This branch of Foxtrot is unstable and is not meant for use other than the main bot or test bots.
+Foxtrot also is not made to be self-hosted, but can be self-hosted if done correctly and changed a few things in the code and added your own bot's token in a token.json. Foxtrot is only really meant to be used for the official bot and test bots (to help with bugfixing and stability checking)
