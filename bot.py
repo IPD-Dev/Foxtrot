@@ -182,8 +182,8 @@ async def meme(ctx):
     try:
         ping.verbose_ping('shitfest.net', count=5)
         delay = ping.Ping('shitfest.net', timeout=2000).do()
-    except socket.error, e:
-        await ctx.send("An error has occured with this command. ", e)
+    except:
+        await ctx.send("An error has occured with this command.")
     async with aiohttp.ClientSession() as session:
         async with session.get('https://api.shitfest.net/v2/random.php') as resp:
             json = await resp.json()
