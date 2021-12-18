@@ -3,7 +3,7 @@
 import discord
 from discord import File, Streaming, Game, Activity, ActivityType, Status
 from discord.ext import commands, tasks
-import io, aiohttp, asyncio, json, random, logging, requests
+import io, aiohttp, asyncio, json, random, logging, requests, ping, socket
 
 
 foxmsgs = [
@@ -129,8 +129,8 @@ async def activity(ctx, atype, *, aname):
 
 @bot.command(brief="gives bot invite link")
 async def invite(ctx):
-    await ctx.send("""Add this bot to your server: https://discord.com/oauth2/authorize?client_id=909103805264724038&permissions=274878203904&scope=bot
-You can also join our official Discord server at https://discord.gg/NAdRyjykv8!""")
+    await ctx.send("""Add this bot to your server: <https://discord.com/oauth2/authorize?client_id=909103805264724038&permissions=274878203904&scope=bot>
+You can also join our official Discord server at <https://discord.gg/VrnJFVfSJR>!""")
 
 @bot.command(brief="gives information about a minecraft user")
 async def mc(ctx, *, name = None):
@@ -179,17 +179,16 @@ Foxtrot is open source! Find the code at <https://code.cat.casa/IPD/Foxtrot>
 """)
 @bot.command(brief="random meme")
 async def meme(ctx):
+    try:
+        ping.verbose_ping('shitfest.net', count=5)
+        delay = ping.Ping('shitfest.net', timeout=2000).do()
+    except socket.error, e:
+        await ctx.send("An error has occured with this command. ", e)
     async with aiohttp.ClientSession() as session:
         async with session.get('https://api.shitfest.net/v2/random.php') as resp:
             json = await resp.json()
-            try:
                 await ctx.send("https://shitfest.net/"+json["name"])
-            except:
-                     embed = discord.Embed(
-                          title = "Command 'meme' failed",
-                          description = "An error has occured with this command. cat.casa could possibly be offline or limited."
-                     )
-                     return await ctx.send(embed = embed)
+
  
 
 @bot.command(brief='IPD Discord server invite', aliases=["support"])
