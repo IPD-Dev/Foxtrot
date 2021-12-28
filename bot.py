@@ -42,6 +42,8 @@ async def fox(ctx):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://foxrudor.de/') as resp:
             file = File(io.BytesIO(await resp.read()),filename='fox.jpg')
+            await ctx.message.delete()
+            await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
             try:
                 await ctx.send(random.choice(foxmsgs),file=file)
             except:
@@ -53,6 +55,8 @@ async def fox(ctx):
 
 @bot.command(brief="give someone a cuddle")
 async def hug(ctx, *, name=None):
+    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
+    await ctx.message.delete()
     if not name:
         return await ctx.send("Foxtrot hugs "+ctx.author.name.replace("@", "")+"! :3")
     nameFixed = name.replace("@everyone", "everyone").replace("@here", "everyone here")
@@ -60,10 +64,13 @@ async def hug(ctx, *, name=None):
 
 @bot.command(brief="gives the top.gg vote link")
 async def vote(ctx):
-    await ctx.send("Vote for Foxtrot on top.gg! <https://top.gg/bot/909103805264724038/vote>")
+    await ctx.message.delete()
+    await ctx.author.send("Vote for Foxtrot on top.gg! <https://top.gg/bot/909103805264724038/vote>")
  
 @bot.command(brief="cattttttttt")
 async def cat(ctx):
+    await ctx.send (f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
+    await ctx.message.delete()
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/cat') as resp:
             json = await resp.json()
@@ -75,6 +82,8 @@ async def cat(ctx):
 
 @bot.command(brief="gives you a fluffy panda")
 async def panda(ctx):
+    await ctx.send (f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
+    await ctx.message.delete()
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/panda') as resp:
             json = await resp.json()
@@ -87,6 +96,8 @@ async def panda(ctx):
 
 @bot.command(brief="omg koala")
 async def koala(ctx):
+    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
+    await ctx.message.delete()
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/koala') as resp:
             json = await resp.json()
@@ -104,6 +115,8 @@ async def restart(ctx):
 
 @bot.command(brief="bin eaters")
 async def raccoon(ctx):
+    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
+    await ctx.message.delete()
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/raccoon') as resp:
             json = await resp.json()
@@ -129,11 +142,17 @@ async def activity(ctx, atype, *, aname):
 
 @bot.command(brief="gives bot invite link")
 async def invite(ctx):
-    await ctx.send("""Add this bot to your server: <https://discord.com/oauth2/authorize?client_id=909103805264724038&permissions=274878203904&scope=bot>
+    await ctx.message.delete()
+    try:
+        await ctx.author.send("""Add this bot to your server: <https://discord.com/oauth2/authorize?client_id=909103805264724038&permissions=274878203904&scope=bot>
 You can also join our official Discord server at <https://discord.gg/VrnJFVfSJR>!""")
+    except:
+        await ctx.send(f"<@{ctx.author.id}>. I could not DM you!")
 
 @bot.command(brief="gives information about a minecraft user")
 async def mc(ctx, *, name = None):
+    await ctx.message.delete()
+    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
     if not name:
         embed = discord.Embed(
             title = "No Minecraft user given!",
@@ -160,15 +179,21 @@ async def mc(ctx, *, name = None):
 
 @bot.command(brief="gives credits")
 async def credits(ctx):
-    await ctx.send("""API endpoints used in this bot are taken from:
+    await ctx.message.delete()
+    try:
+        await ctx.author.send("""API endpoints used in this bot are taken from:
 https://foxrudor.de/
 https://some-random-api.ml
 https://shitfest.net
 """)
+    except:
+        await ctx.send(f"<@{ctx.author.id}>. I could not DM you!")
 
 @bot.command(brief="shows contributors to Foxtrot")
 async def contributors(ctx):
-    await ctx.send("""Contributors to the Foxtrot bot are:
+    await ctx.message.delete()
+    try:
+        await ctx.author.send("""Contributors to the Foxtrot bot are:
 Helixu#1111
 xfnw#1113 
 <https://cat.casa/~julia/> (shitfest memes API)
@@ -177,22 +202,33 @@ remi#9948 (also pretty cool ig)
 Ecolipsy#0001
 Foxtrot is open source! Find the code at <https://code.cat.casa/IPD/Foxtrot>
 """)
+    except:
+        await ctx.send(f"<@{ctx.author.id}>. I could not DM you!")
+
 @bot.command(brief="random meme")
 async def meme(ctx):
+    await ctx.message.delete()
     async with aiohttp.ClientSession() as session:
         async with session.get('https://api.shitfest.net/v2/random.php') as resp:
             json = await resp.json()
-            await ctx.send("https://shitfest.net/"+json["name"])
+            await ctx.send(f"""*Command executed by {ctx.author.name}#{ctx.author.discriminator}*
+""""https://shitfest.net/"""+json["name"])
 
  
 
 @bot.command(brief='IPD Discord server invite', aliases=["support"])
 async def server(ctx):
-	await ctx.send("""The official discord server for Foxtrot is discord.gg/mDBfnysAqd
+    await ctx.message.delete()
+    try:
+        await ctx.author.send("""The official discord server for Foxtrot is discord.gg/mDBfnysAqd
 Our server contains everything we do and work on.""")
+    except:
+        await ctx.send(f"<@{ctx.author.id}>. I could not DM you!")
  
 @bot.command(brief='makes things gay')
 async def gay(ctx, url = None):
+    await ctx.message.delete()
+    await ctx.send("*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
     await ctx.trigger_typing()
     async with aiohttp.ClientSession() as session:
         async with session.get(
