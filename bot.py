@@ -228,7 +228,7 @@ Our server contains everything we do and work on.""")
 @bot.command(brief='makes things gay')
 async def gay(ctx, url = None):
     await ctx.message.delete()
-    await ctx.send("*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
+    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
     await ctx.trigger_typing()
     async with aiohttp.ClientSession() as session:
         async with session.get(
