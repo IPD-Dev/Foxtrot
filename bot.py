@@ -247,6 +247,51 @@ async def gay(ctx, url = None):
                 await ctx.send("""An unexpected error happened, Steve.. I told you this already!
 Are you sure that the image URL you sent is correct? Image attachments currently do not work!""")
 
+
+@bot.command(brief='where the wetters go')
+async def jail(ctx, url = None):
+    await ctx.message.delete()
+    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
+    await ctx.trigger_typing()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+        f'https://some-random-api.ml/canvas/jail?avatar={url}'
+        ) as af:
+            if 300 > af.status >= 200 :
+                fp = io.BytesIO(await af.read())
+                file = discord.File(fp, "amongus.png")
+                embed = discord.Embed(
+                    title="dont drop the soap!",
+                    color=0xf1f1f1,
+                    )
+                embed.set_image(url="attachment://amongus.png")
+                await ctx.send(embed=embed, file=file)
+            else:
+                await ctx.send("""An unexpected error happened, Steve.. I told you this already!
+Are you sure that the image URL you sent is correct? Image attachments currently do not work!""")
+
+@bot.command(brief='similar to esmBot blurple, but with 104% more fox')
+async def blurple(ctx, url = None):
+    await ctx.message.delete()
+    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
+    await ctx.trigger_typing()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+        f'https://some-random-api.ml/canvas/blurple?avatar={url}'
+        ) as af:
+            if 300 > af.status >= 200 :
+                fp = io.BytesIO(await af.read())
+                file = discord.File(fp, "amongus.png")
+                embed = discord.Embed(
+                    title="amogus?",
+                    color=0xf1f1f1,
+                    )
+                embed.set_image(url="attachment://amongus.png")
+                await ctx.send(embed=embed, file=file)
+            else:
+                await ctx.send("""An unexpected error happened, Steve.. I told you this already!
+Are you sure that the image URL you sent is correct? Image attachments currently do not work!""")
+
     
 
 @bot.event
