@@ -194,7 +194,7 @@ async def contributors(ctx):
     await ctx.message.delete()
     try:
         await ctx.author.send("""Contributors to the Foxtrot bot are:
-Helixu#1111
+ginłaŋg#1111
 xfnw#1113 
 <https://cat.casa/~julia/> (shitfest memes API)
 TFTWPhoenix#9240 (I dont know, hes cool I guess.)
