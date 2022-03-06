@@ -200,7 +200,7 @@ async def meme(ctx):
 
  
 
-@bot.command(brief='IPD Discord server invite', aliases=["support"])
+@bot.command(brief='Kitsune Discord server invite', aliases=["support"])
 async def server(ctx):
     await ctx.message.delete()
     try:
