@@ -189,22 +189,6 @@ https://shitfest.net
     except:
         await ctx.send(f"<@{ctx.author.id}>. I could not DM you!")
 
-@bot.command(brief="shows contributors to Foxtrot")
-async def contributors(ctx):
-    await ctx.message.delete()
-    try:
-        await ctx.author.send("""Contributors to the Foxtrot bot are:
-ginłaŋg#1111
-xfnw#1113 
-<https://cat.casa/~julia/> (shitfest memes API)
-TFTWPhoenix#9240 (I dont know, hes cool I guess.)
-remi#9948 (also pretty cool ig)
-Ecolipsy#0001
-Foxtrot is open source! Find the code at <https://code.cat.casa/IPD/Foxtrot>
-""")
-    except:
-        await ctx.send(f"<@{ctx.author.id}>. I could not DM you!")
-
 @bot.command(brief="random meme")
 async def meme(ctx):
     await ctx.message.delete()
