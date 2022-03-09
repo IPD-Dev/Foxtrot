@@ -144,7 +144,7 @@ async def activity(ctx, atype, *, aname):
 async def invite(ctx):
     await ctx.message.delete()
     try:
-        await ctx.author.send("""Add this bot to your server: <https://discord.com/oauth2/authorize?client_id=909103805264724038&permissions=274878203904&scope=bot>
+        await ctx.author.send("""Add this bot to your server: <https://discord.com/api/oauth2/authorize?client_id=909103805264724038&permissions=274878032896&scope=bot%20applications.commands>
 You can also join our official Discord server at <https://discord.gg/VrnJFVfSJR>!""")
     except:
         await ctx.send(f"<@{ctx.author.id}>. I could not DM you!")
