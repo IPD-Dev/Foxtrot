@@ -55,8 +55,6 @@ async def fox(ctx):
 
 @bot.command(brief="give someone a cuddle")
 async def hug(ctx, *, name=None):
-    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
-    await ctx.message.delete()
     if not name:
         return await ctx.send("Foxtrot hugs "+ctx.author.name.replace("@", "")+"! :3")
     nameFixed = name.replace("@everyone", "everyone").replace("@here", "everyone here")
