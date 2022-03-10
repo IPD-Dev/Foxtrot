@@ -3,7 +3,7 @@
 import discord
 from discord import File, Streaming, Game, Activity, ActivityType, Status
 from discord.ext import commands, tasks
-import io, aiohttp, asyncio, json, random, logging, requests
+import io, aiohttp, asyncio, json, random, logging, requests, re
 
 
 foxmsgs = [
@@ -35,7 +35,9 @@ async def is_ginlang(ctx):
 
 logging.basicConfig(level=logging.INFO)
 
-bot = commands.Bot(command_prefix='gib ')
+intents = discord.Intents.default()
+intents.members = True
+bot = commands.Bot(command_prefix='gib ', intents = intents)
 
 @bot.command(brief="gives you a fluffy fox")
 async def fox(ctx):
@@ -274,7 +276,40 @@ async def blurple(ctx, url = None):
                 await ctx.send("""An unexpected error happened, Steve.. I told you this already!
 Are you sure that the image URL you sent is correct? Image attachments currently do not work!""")
 
-    
+@bot.command(brief="get a user's profile picture")
+async def pfp(ctx, *, person=None):
+    if person is None:
+        person = ctx.message.author
+    else:
+        try:
+            person = await ctx.guild.fetch_member(
+                re.sub(
+                    r"[<>!@]",
+                    "",
+                    person,
+                )
+            )
+        except (discord.NotFound, discord.HTTPException):
+            found = None
+            for member in ctx.guild.members:
+                if (
+                    person.lower() in member.name.lower()
+                    or person.lower() in member.display_name.lower()
+                ):
+                    if found is None:
+                        found = member
+                    else:
+                        await ctx.send(
+                            "oh nOwO, that was not specific enough, try `@mention`ing them."
+                        )
+                        return
+            if found is None:
+                await ctx.send(
+                    "sowwy i could not find that user, try `@mention`ing them."
+                )
+                return
+            person = found
+    await ctx.send(f"**{person.display_name}**'s pfp: {person.avatar_url}")
 
 @bot.event
 async def on_ready():
