@@ -233,13 +233,13 @@ Are you sure that the image URL you sent is correct? Image attachments currently
 
 
 @bot.command(brief='where the wetters go')
-async def jail(ctx, url = None):
+async def jail(ctx, member: discord.Member=None):
     await ctx.message.delete()
     await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
     await ctx.trigger_typing()
     async with aiohttp.ClientSession() as session:
         async with session.get(
-        f'https://some-random-api.ml/canvas/jail?avatar={url}'
+        f'https://some-random-api.ml/canvas/jail?avatar={member.avatar_url_as(format="png", size=1024)}'
         ) as af:
             if 300 > af.status >= 200 :
                 fp = io.BytesIO(await af.read())
@@ -252,7 +252,7 @@ async def jail(ctx, url = None):
                 await ctx.send(embed=embed, file=file)
             else:
                 await ctx.send("""An unexpected error happened, Steve.. I told you this already!
-Are you sure that the image URL you sent is correct? Image attachments currently do not work!""")
+Are you sure that the user's name is correct?""")
 
 @bot.command(brief='similar to esmBot blurple, but with 104% more fox')
 async def blurple(ctx, url = None):
