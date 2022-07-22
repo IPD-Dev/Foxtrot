@@ -316,7 +316,7 @@ async def pfp(ctx, *, person=None):
 @bot.event
 async def on_ready():
     await asyncio.sleep(1) # someone on stackoverflow said discord does not like if you are speedy
-    await bot.change_presence(activity=Streaming(name=f"Dev Mode ¦ {str(getAllUsers())} users", url="https://www.youtube.com/watch?v=1xBO4pUAs4M"))
+    await bot.change_presence(activity=Streaming(name=f"to Myspace ¦ {str(getAllUsers())} users", url="https://www.youtube.com/watch?v=1xBO4pUAs4M"))
 
 with open('token.json', 'r') as file:
     # this breaks if you are on windows
