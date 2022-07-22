@@ -14,6 +14,8 @@ foxmsgs = [
         'fox hugz u',
         'fox fox fox',
         'heres ur fox',
+	'fox says the fog is coming',
+	'gaming fox 76',
         ]
 
 def getAllUsers():
@@ -24,7 +26,7 @@ def getAllUsers():
 
 async def is_ginlang(ctx):
     """
-    are you ginlang or the other dudes?
+    are you cool enough?
     """
     if ctx.author.id in [287885666941927424, 160091312081731584, 894034804503351366, 296736767158255616, 831598877320413244]:
         return True
