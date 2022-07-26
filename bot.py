@@ -147,7 +147,7 @@ async def invite(ctx):
     await ctx.message.delete()
     try:
         await ctx.author.send("""Add this bot to your server: <https://discord.com/api/oauth2/authorize?client_id=909103805264724038&permissions=274878032896&scope=bot%20applications.commands>
-You can also join our official Discord server at <https://discord.gg/VrnJFVfSJR>!""")
+You can also join our official Discord server at <http://discord.kitsune.icu>!""")
     except:
         await ctx.send(f"<@{ctx.author.id}>. I could not DM you!")
 
@@ -206,7 +206,7 @@ async def meme(ctx):
 async def server(ctx):
     await ctx.message.delete()
     try:
-        await ctx.author.send("""The official discord server for Foxtrot is discord.gg/mDBfnysAqd
+        await ctx.author.send("""The official discord server for Foxtrot is <http://discord.kitsune.icu>
 Our server contains everything we do and work on.""")
     except:
         await ctx.send(f"<@{ctx.author.id}>. I could not DM you!")
