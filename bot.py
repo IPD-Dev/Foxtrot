@@ -26,9 +26,9 @@ def getAllUsers():
 
 async def is_ginlang(ctx):
     """
-    are you cool enough?
+    ginlang, xfnw, Allink, Greenate, Ecolipsy
     """
-    if ctx.author.id in [287885666941927424, 160091312081731584, 894034804503351366, 296736767158255616, 831598877320413244]:
+    if ctx.author.id in [287885666941927424, 296736767158255616, 504894402590801921, 404456604839182347, 381505230715486220]:
         return True
     else:
         logchannel = await bot.fetch_channel(910622485916037150)
