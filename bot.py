@@ -43,8 +43,6 @@ bot = commands.Bot(command_prefix='gib ', intents = intents)
 
 @bot.command(brief="gives you a fluffy fox")
 async def fox(ctx):
-    await ctx.send (f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
-    await ctx.message.delete()
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/fox') as resp:
             json = await resp.json()
@@ -64,12 +62,13 @@ async def hug(ctx, *, name=None):
 @bot.command(brief="gives the top.gg vote link")
 async def vote(ctx):
     await ctx.message.delete()
-    await ctx.author.send("Vote for Foxtrot on top.gg! <https://top.gg/bot/909103805264724038/vote>")
- 
+    try:
+        await ctx.author.send("Vote for Foxtrot on top.gg! <https://top.gg/bot/909103805264724038/vote>")
+    except:
+        await ctx.send(f"<@{ctx.author.id}>. I could not DM you!")
+    
 @bot.command(brief="cattttttttt")
 async def cat(ctx):
-    await ctx.send (f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
-    await ctx.message.delete()
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/cat') as resp:
             json = await resp.json()
@@ -81,8 +80,6 @@ async def cat(ctx):
 
 @bot.command(brief="gives you a fluffy panda")
 async def panda(ctx):
-    await ctx.send (f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
-    await ctx.message.delete()
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/panda') as resp:
             json = await resp.json()
@@ -93,10 +90,8 @@ async def panda(ctx):
             await ctx.send(json["image"])
 
 
-@bot.command(brief="omg koala")
+@bot.command(brief="is this an onlykoalalive reference?")
 async def koala(ctx):
-    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
-    await ctx.message.delete()
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/koala') as resp:
             json = await resp.json()
@@ -109,13 +104,12 @@ async def koala(ctx):
 @bot.command(hidden=True)
 @commands.check(is_ginlang)
 async def restart(ctx):
-	await ctx.send("shutting down. beep boop.")
+	await ctx.send("restarting. beep boop.")
 	await exit()
+    #This will only restart if you use a start script
 
 @bot.command(brief="bin eaters")
 async def raccoon(ctx):
-    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
-    await ctx.message.delete()
     async with aiohttp.ClientSession() as session:
         async with session.get('https://some-random-api.ml/animal/raccoon') as resp:
             json = await resp.json()
@@ -150,8 +144,6 @@ You can also join our official Discord server at <http://discord.kitsune.icu>!""
 
 @bot.command(brief="gives information about a minecraft user")
 async def mc(ctx, *, name = None):
-    await ctx.message.delete()
-    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
     if not name:
         embed = discord.Embed(
             title = "No Minecraft user given!",
@@ -181,7 +173,6 @@ async def credits(ctx):
     await ctx.message.delete()
     try:
         await ctx.author.send("""API endpoints used in this bot are taken from:
-https://foxrudor.de/
 https://some-random-api.ml
 https://shitfest.net
 """)
@@ -194,8 +185,7 @@ async def meme(ctx):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://api.shitfest.net/v2/random.php') as resp:
             json = await resp.json()
-            await ctx.send(f"""*Command executed by {ctx.author.name}#{ctx.author.discriminator}*
-""""https://shitfest.net/"""+json["name"])
+            await ctx.send(f"https://shitfest.net/"+json["name"])
 
  
 
@@ -210,8 +200,6 @@ Our server contains everything we do and work on.""")
  
 @bot.command(brief='makes things gay')
 async def gay(ctx, url = None):
-    await ctx.message.delete()
-    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
     await ctx.trigger_typing()
     async with aiohttp.ClientSession() as session:
         async with session.get(
@@ -233,8 +221,6 @@ Are you sure that the image URL you sent is correct? Image attachments currently
 
 @bot.command(brief='where the wetters go')
 async def jail(ctx, member: discord.Member=None):
-    await ctx.message.delete()
-    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
     await ctx.trigger_typing()
     async with aiohttp.ClientSession() as session:
         async with session.get(
@@ -255,8 +241,6 @@ Are you sure that the user's name is correct?""")
 
 @bot.command(brief='similar to esmBot blurple, but with 104% more fox')
 async def blurple(ctx, url = None):
-    await ctx.message.delete()
-    await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
     await ctx.trigger_typing()
     async with aiohttp.ClientSession() as session:
         async with session.get(
