@@ -43,19 +43,16 @@ bot = commands.Bot(command_prefix='gib ', intents = intents)
 
 @bot.command(brief="gives you a fluffy fox")
 async def fox(ctx):
+    await ctx.send (f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
+    await ctx.message.delete()
     async with aiohttp.ClientSession() as session:
-        async with session.get('https://foxrudor.de/') as resp:
-            file = File(io.BytesIO(await resp.read()),filename='fox.jpg')
-            await ctx.message.delete()
-            await ctx.send(f"*Command executed by {ctx.author.name}#{ctx.author.discriminator}*")
-            try:
-                await ctx.send(random.choice(foxmsgs),file=file)
-            except:
-                     embed = discord.Embed(
-                         title = "Command 'fox' failed",
-                         description = "Received unexpected error, foxes occupied by ginlang, who is currently hugging them! 413 Payload too Large"
-                     )
-                     return await ctx.send(embed = embed)
+        async with session.get('https://some-random-api.ml/animal/fox') as resp:
+            json = await resp.json()
+            error = json.get('error')
+            if error:
+                return await ctx.send(f'Received unexpected error, unclear instructions, got stuck in toaster! ({error})')
+            await ctx.send(json["fact"])
+            await ctx.send(json["image"])
 
 @bot.command(brief="give someone a cuddle")
 async def hug(ctx, *, name=None):
