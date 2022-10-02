@@ -31,7 +31,7 @@ async def is_ginlang(ctx):
     if ctx.author.id in [287885666941927424, 296736767158255616, 504894402590801921, 404456604839182347, 381505230715486220]:
         return True
     else:
-        logchannel = await bot.fetch_channel(1018921567952060458)
+        logchannel = await bot.fetch_channel(1019991519236726914)
         await logchannel.send('User '+ctx.author.name+'#'+ctx.author.discriminator+' ('+str(ctx.author.id)+') has attempted to use a whitelist only command.')
         return False
 
