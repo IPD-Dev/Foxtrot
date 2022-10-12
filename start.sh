@@ -1,4 +1,5 @@
 while [ true ]
 do
-	python3 bot.py
+	git pull
+	node index.js
 done
