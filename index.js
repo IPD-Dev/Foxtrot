@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unreachable */
-const { Client, GatewayIntentBits } = require("discord.js");
+const { Client, GatewayIntentBits, ActivityType } = require("discord.js");
 const config = require("./config.json");
 const path = require("path");
 const fs = require("fs");
@@ -80,12 +80,13 @@ client.on("messageCreate", async (message) => {
 });
 
 function updatePresence() {
-    client.user.setPresence({status: "online", activities: [{name: `the superbowl with ${client.guilds.cache.size} guilds.`, type: "WATCHING"}]});
+    client.user.setStatus("online");
+    client.user.setActivity(`the superbowl with ${client.guilds.cache.size} guilds.`, { type: ActivityType.Watching });
 }
 
 setInterval(() => {
     updatePresence();
-}, 30000);
+}, 5000);
 
 client.once("ready", () => {
     console.log(`Logged in as ${client.user.tag}`);
